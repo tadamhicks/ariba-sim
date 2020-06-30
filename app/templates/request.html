@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+{% block body %}
+<h1>Ariba Record</h1>
+<form action="{{ url_for('approvals') }}" method="post">
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th>Request ID</th>
+          <th>Request Name</th>
+          <th>Morpheus ID</th>
+          <th>Request Item</th>
+          <th>Request Status</th>
+          <th>Requestor</th>
+          <th>Price/mo.</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      {% for item in record %}
+      <tbody>
+      <TR>
+         <TD >{{item.id}}</TD>
+         <TD>{{item.name}}</TD>
+         <TD>{{item.morpheus_id}}</TD>
+         <TD>{{item.item}}</TD>
+         <TD class="select">
+             <select id="approval" name="approval">
+                 <option value="{{item.status}}_{{item.id}}">
+                  {% if item.status == False %}
+                  Not Approved
+                  {% else %}
+                  Approved
+                  {% endif %}
+                 </option>
+                 <option value="{% if item.status == False %}True{% else %}False{% endif%}_{{item.id}}">
+                  {% if item.status == False %}
+                  Approved
+                  {% else %}
+                  Not Approved
+                  {% endif %}
+                 </option>
+             </select>
+          </TD>
+         <TD>{{item.requestor}}</TD>
+         <TD>${{item.price}}</TD>
+         <TD>{{item.timestamp}}</TD>
+      </TR>
+    </tbody>
+    {% endfor %}
+      </table>
+      <div class="row">
+        <div class="col text-center">
+          <button class="btn btn-primary">Submit Approvals</button>
+        </div>
+      </div>
+      </form>
+
+{% endblock %}
