@@ -3,7 +3,7 @@ from flask import Flask, request, session, redirect, url_for, \
 from app import app, db
 from .models import RequestItems
 import json
-import distutils
+from distutils.util import strtobool
 
 @app.route('/', methods=['GET'])
 def home():
@@ -53,7 +53,7 @@ def approvals():
     select = value[0]
 
     id = value[1]
-    x = bool(distutils.util.strtobool(select))
+    x = bool(strtobool(select))
     requestitem = RequestItems.query.filter_by(id=id).first()
     requestitem.status = x
     db.session.commit()
