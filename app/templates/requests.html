@@ -17,7 +17,7 @@
           </thead>
         {% for item in requests %}
         <tbody>
-        <TR class="clickable-row" data-href="http://localhost:9090/request?morpheus_id={{item.morpheus_id}}">
+        <TR class="clickable-row" data-href="{{ url_for('requestitems', morpheus_id=[item.morpheus_id])}}">
            <TD>{{item.id}}</TD>
            <TD>{{item.name}}</TD>
            <TD>{{item.morpheus_id}}</TD>
